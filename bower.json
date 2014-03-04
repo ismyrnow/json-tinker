@@ -1,0 +1,30 @@
+{
+  "name": "json-tinker",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ismyrnow/json-tinker",
+  "authors": [
+    "Ilya Radchenko <ilya@burstcreations.com>"
+  ],
+  "description": "Inline JSON editing plugin for jQuery",
+  "main": "tinker.js",
+  "keywords": [
+    "json",
+    "editing",
+    "inline",
+    "jquery",
+    "plugin"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "jQuery-contextMenu": "~1.6.5"
+  }
+}
