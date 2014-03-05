@@ -6,23 +6,23 @@
     <link href="styles.css" rel="stylesheet">
     <script src="vendor/jquery/dist/jquery.js" type="text/javascript"></script>
     <script src="jeditable.js" type="text/javascript"></script>
-    <!--<script src="http://json.bubblemix.net/jquery.contextMenu.js" type="text/javascript" charset="utf-8"></script> -->
+    <script src="jquery.contextMenu.js" type="text/javascript" charset="utf-8"></script>
     <script src="tinker.js" type="text/javascript"></script>
   </head>
   <body>
     <div id="inputarea" class="rounded">
       input:
-      <textarea id="jsoninput" rows="35" cols="24">{"name":"jane","employed":false,"husband":null,"items":["haro",23,{"brand":"Duca"},true],"pets":[{"name":"chopper","color":"blue"},{"name":"yoshi","color":"green"},{"name":"mame","color":"&#38738;&#12356;"}],"height":170.4,"car":{"color":"red","model":"mini","clean":false}}</textarea>
+      <textarea id="json-input" rows="35" cols="24">{"name":"jane","employed":false,"husband":null,"items":["haro",23,{"brand":"Duca"},true],"pets":[{"name":"chopper","color":"blue"},{"name":"yoshi","color":"green"},{"name":"mame","color":"&#38738;&#12356;"}],"height":170.4,"car":{"color":"red","model":"mini","clean":false}}</textarea>
     </div>
 
     <div id="toolarea" class="rounded">tools:
-      <a href="#" onclick="javascript:load_from_box(); " title="import into workspace">&gt;&gt;</a><br/>
-      <a href="#" onclick="javascript:extract_json('json_editor', 2); "  title="export json with 2 space indent">&lt;2</a><br/>
+      <a id="load-json" title="import into workspace">&gt;&gt;</a>
+      <a id="extract-json" title="export json with 2 space indent">&lt;2</a>
     </div>
 
     <div id="editarea" class="rounded">
       workspace:
-      <div id="json_editor" data-role="myjson"></div>
+      <div id="json-editor"></div>
     </div>
   </body>
 </html>

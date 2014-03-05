@@ -1,83 +1,90 @@
-$(function(){
-  $(document).bind("contextmenu",function(e){
+$(function () {
+  $(document).bind('contextmenu', function () {
     return false;
   }); 
-        
-  $('#json_editor').tinker('{"greeting":"haro"}');
 
-  $('#jsoninput').click(function(){
+  $('#load-json').on('click', function () {
+    loadJson();
+  });
+
+  $('#extract-json').on('click', function () {
+    extractJson('json-editor', 2);
+  });
+        
+  $('#json-editor').tinker('{"greeting":"haro"}');
+
+  $('#json-input').click(function () {
     $(this).focus();
     $(this).select();
   });
 });
 
 // stuff for the right click menus
-function setup_menu() {
+function setupContextMenu() {
   $('div[data-role="arrayitem"]').contextMenu('context-menu1', {
     'remove item': {
-      click: remove_item,
-      klass: "menu-item-1"
+      click: removeItem,
+      klass: 'menu-item-1'
     },
-  }, menu_options);
+  }, menuOptions);
   $('div[data-role="prop"]').contextMenu('context-menu2', {
     'remove item': {
-      click: remove_item,
-      klass: "menu-item-1"
+      click: removeItem,
+      klass: 'menu-item-1'
     },
-  }, menu_options);
+  }, menuOptions);
 }
 
-function remove_item(element) {
-      console.log("# delete");
-      element.hide(500, function () {
-        $(this).remove();
-      });
+function removeItem(element) {
+  element.hide(500, function () {
+    $(this).remove();
+  });
 }
 
-var menu_options = {
+var menuOptions = {
   disable_native_context_menu: true,
-  showMenu: function(element) {
+  showMenu: function (element) {
     element.addClass('dimmed');
   },
-  hideMenu: function(element) {
+  hideMenu: function (element) {
     element.removeClass('dimmed');
   },
 };
 
-var easy_save_value = function(value, settings) { 
+var easySaveValue = function (value, settings) { 
   $(this).text(value);
 };
 
-var save_value = function(value, settings) { 
+var saveValue = function (value, settings) { 
   console.log(this); console.log(value); // console.log(settings);
 
   if ($(this).data('role') == 'value') {
-    if (value == "null") {
-      $(this).attr("data-type", "null");
-      $(this).data('type','null');
+    if (value == 'null') {
+      $(this).attr('data-type', 'null');
+      $(this).data('type', 'null');
       $(this).text(value);
       $(this).unbind('click');
-    } else if (value == "true" || value == "false") {
-      $(this).attr("data-type", "boolean");
-      $(this).data('type','boolean');
+    } else if (value == 'true' || value == 'false') {
+      $(this).attr('data-type', 'boolean');
+      $(this).data('type', 'boolean');
       $(this).text(value);
       $(this).unbind();
-      $(this).editable(save_value,{ cssclass : 'edit_box', height:'20px', width:'100px', data : "{'true':'true','false':'false'}", type : 'select', onblur : 'submit' });
+      $(this).editable(saveValue, { cssclass: 'edit-box', height:'20px', width:'100px', data: "{'true':'true','false':'false'}", type: 'select', onblur: 'submit' });
     } else {
       var num = parseFloat(value);
       console.log(num);
       if (isNaN(num)) {
-        $(this).attr("data-type", "string");
+        $(this).attr('data-type', 'string');
         $(this).data('type','string');
         $(this).text(value);
         $(this).unbind();
-        $(this).editable(save_value, { cssclass : 'edit_box', height:'20px', width:'50px'});
+        $(this).editable(saveValue, { cssclass: 'edit-box', height:'20px', width:'50px' });
       } else {
-        $(this).attr("data-type", "number");
+        $(this).attr('data-type', 'number');
         $(this).data('type','number');
         $(this).text(num);
         $(this).unbind();
-        $(this).editable(save_value, { cssclass : 'edit_box', height:'20px', width:'150px'});
+        $(this).editable(saveValue, { cssclass: 'edit-box', height:'20px', width:'150px' });
       }
     }
   } else {
@@ -86,35 +93,35 @@ var save_value = function(value, settings) {
 };
 
 // copy the workspace back into the textarea
-function extract_json(divid, indent){
-  $('#jsoninput').val(glean_json(divid,indent));
+function extractJson(divid, indent){
+  $('#json-input').val(gleanJson(divid, indent));
 }
 
 // convert the work area to a json string
-function glean_json(divid, indent)  {
+function gleanJson(divid, indent)  {
   var base = $('#' + divid);
   var rootnode = base.children('div[data-role="value"]:first');
-  var jsObject = parse_node(rootnode);
+  var jsObject = parseNode(rootnode);
   var json = JSON.stringify(jsObject, null, indent);
   return json;
 }
 
 // convert the work area to a js object
-function parse_node(node) {
+function parseNode(node) {
   var type = node.data('type');
   if (type == 'object') {
     var newNode = new Object();
     var props = node.children('div[data-role="prop"]');
-    props.each(function(index) {
-      newNode[$(this).children('[data-role="key"]').html()] = parse_node($(this).children('[data-role="value"]'));
+    props.each(function (index) {
+      newNode[$(this).children('[data-role="key"]').html()] = parseNode($(this).children('[data-role="value"]'));
     });
     return newNode;
   } else if (type == 'array') {
     var newNode = new Array();
     var values = node.children('[data-role="arrayitem"]');
-    values.each(function(index) {
-      var value_node = $(this).children('[data-role="value"]');
-      newNode.push(parse_node(value_node));
+    values.each(function (index) {
+      var valueNode = $(this).children('[data-role="value"]');
+      newNode.push(parseNode(valueNode));
     });
     return newNode;
   } else if (type == 'string') {
@@ -132,21 +139,21 @@ function parse_node(node) {
   }
 }
 
-function remove_editlets() {
-  $("span.collapse_box").remove();
-  $("div.inline_add_box").remove();
+function removeEditlets() {
+  $("span.collapse-box").remove();
+  $("div.inline-add-box").remove();
   $(".context-menu").remove();
 }
 
-function apply_editlets() {
-  remove_editlets();
+function applyEditlets() {
+  removeEditlets();
   // add collapse boxes for the arrays and objects
-  var o_collapse_box = $('<span class="collapse_box"><span>[-]</span><span style="display: none">[+] {...}</span></span>');
-  var a_collapse_box = $('<span class="collapse_box"><span>[-]</span><span style="display: none" data-role="counter">[+] []</span></span>');
-  $('div[data-type="object"]').before(o_collapse_box );
-  $('div[data-type="array"]').before(a_collapse_box );
+  var objectCollapseBox = $('<span class="collapse-box"><span>[-]</span><span style="display: none">[+] {...}</span></span>');
+  var arrayCollapseBox = $('<span class="collapse-box"><span>[-]</span><span style="display: none" data-role="counter">[+] []</span></span>');
+  $('div[data-type="object"]').before(objectCollapseBox);
+  $('div[data-type="array"]').before(arrayCollapseBox);
 
-  $('.collapse_box').click(function(){
+  $('.collapse-box').click(function () {
     var $this = $(this),
       next = $this.next();
 
@@ -161,41 +168,44 @@ function apply_editlets() {
   });
   
   // add the "new" buttons
-  var add_more_box = $('<div class="inline_add_box"><div class="add_box_content">add: <a data-task="add_value" href="#">text</a> | <a data-task="add_array" href="#">array</a> | <a data-task="add_object" href="#">object</a></div></div>');
-  $('div[data-type="object"]').append(add_more_box);
-  $('div[data-type="array"]').append(add_more_box);
+  var addMoreBox = $('<div class="inline-add-box"><div class="add-box-content">add: <a data-task="add-value">text</a> | <a data-task="add-array">array</a> | <a data-task="add-object">object</a></div></div>');
+
+  $('div[data-type="object"]').append(addMoreBox);
+  $('div[data-type="array"]').append(addMoreBox);
   
-  $('div.inline_add_box a').click(function(e){
+  $('div.inline-add-box a').on('click', function (e) {
     var target = $(e.target);
     var task = target.data('task');
-    var add_box = target.parents(".inline_add_box");
-    var collection = add_box.parent();				
+    var addBox = target.parents('.inline-add-box');
+    var collection = addBox.parent();				
     var type = collection.data('type');
 
-    // TODO this code is a partial duplicate of code in make_node fix it!
+    // TODO this code is a partial duplicate of code in makeNode fix it!
     if (type == 'object') {
-      var newObj = $('<div data-role="prop"></div>').append( $('<span data-role="key">').append("key")).append(': ');
+      var newObj = $('<div data-role="prop"></div>')
+        .append($('<span data-role="key">').append('key'))
+        .append(': ');
     } else {
       var newObj = $('<div data-role="arrayitem"></div>');
     }
     
-    if (task == 'add_object') {
+    if (task === 'add-object') {
       var json = '{"id":"1"}';
-      newObj.append(make_node(JSON.parse(json)));
-    } else if (task == 'add_array') {
+      newObj.append(makeNode(JSON.parse(json)));
+    } else if (task === 'add-array') {
       var json = '["item1"]';
-      newObj.append(make_node(JSON.parse(json)));
+      newObj.append(makeNode(JSON.parse(json)));
     } else {
-      newObj.append($('<pre data-role="value" data-type="string">').html("value"));
+      newObj.append($('<pre data-role="value" data-type="string">').html('value'));
     }
     newObj.hide();
-    add_box.before(newObj);
+    addBox.before(newObj);
     newObj.show(500);
-    apply_editlets();
+    applyEditlets();
     return false;
   });
   
-  $(".inline_add_box").hover(
+  $('.inline-add-box').hover(
     function () {
       $(this).children().show(100);
     },
@@ -205,24 +215,23 @@ function apply_editlets() {
   );
 
   // make the fields editable in place
-  $('span[data-role="key"]').editable(easy_save_value,{ cssclass : 'edit_box', height:'20px', width:'100px'});
-  $('[data-type="string"]').editable(save_value, { cssclass : 'edit_box', height:'20px', width:'150px'});
-  $('[data-type="number"]').editable(save_value, { cssclass : 'edit_box', height:'20px', width:'50px'});
-  $('[data-type="null"]').editable(save_value, { cssclass : 'edit_box', height:'20px', width:'150px'});
-  $('[data-type="boolean"]').editable(save_value,{ cssclass : 'edit_box', height:'20px', width:'100px', data : "{'true':'true','false':'false'}", type : 'select', onblur : 'submit' });
+  $('span[data-role="key"]').editable(easySaveValue, { cssclass: 'edit-box', height:'20px', width:'100px'});
+  $('[data-type="string"]').editable(saveValue, { cssclass: 'edit-box', height:'20px', width:'150px'});
+  $('[data-type="number"]').editable(saveValue, { cssclass: 'edit-box', height:'20px', width:'50px'});
+  $('[data-type="null"]').editable(saveValue, { cssclass: 'edit-box', height:'20px', width:'150px'});
+  $('[data-type="boolean"]').editable(saveValue, { cssclass: 'edit-box', height:'20px', width:'100px', data: "{'true':'true','false':'false'}", type: 'select', onblur: 'submit' });
+
   
   // make the right click menus
-  //setup_menu();
+  setupContextMenu();
 }
 
 // parse the text area into the the workarea, setup the event handlers
-function load_from_box() {
-  var $editor = $('#json_editor');
+function loadJson() {
+  var $editor = $('#json-editor');
 
   $editor.html('');
-  $editor.tinker($('#jsoninput').val());
-
-  // add the jquery editing magic
+  $editor.tinker($('#json-input').val());
 }
 
 $.fn.tinker = function (jsonStr) {
@@ -234,21 +243,21 @@ $.fn.tinker = function (jsonStr) {
     json = JSON.parse('{"error": "parse failed"}');
   }
 
-  this.append(make_node(json));
-  apply_editlets();
+  this.append(makeNode(json));
+  applyEditlets();
 };
 
 // recursively make html nodes out of the json
-function make_node(node_in) {
-  var type = Object.prototype.toString.apply(node_in),
+function makeNode(nodeIn) {
+  var type = Object.prototype.toString.apply(nodeIn),
     container;
 
   if (type === '[object Object]') {
     container = makeValueRole('div', 'object');
 
-    for(var prop in node_in) {
-      if(node_in.hasOwnProperty(prop)) {
-        var row = $('<div data-role="prop"></div>').append( $('<span data-role="key">').append(prop)).append(': ').append(make_node(node_in[prop]));
+    for(var prop in nodeIn) {
+      if(nodeIn.hasOwnProperty(prop)) {
+        var row = $('<div data-role="prop"></div>').append( $('<span data-role="key">').append(prop)).append(': ').append(makeNode(nodeIn[prop]));
         container.append(row);
       }
     }
@@ -257,20 +266,20 @@ function make_node(node_in) {
   } else if (type === '[object Array]') {
     container = makeValueRole('div', 'array');
 
-    for (var i = 0, j = node_in.length; i < j; i++) {
-      var row = $('<div data-role="arrayitem"></div>').append(make_node(node_in[i]));
+    for (var i = 0, j = nodeIn.length; i < j; i++) {
+      var row = $('<div data-role="arrayitem"></div>').append(makeNode(nodeIn[i]));
       container.append(row);
     }
 
     return container;
   } else if (type === '[object String]') {
-    return makeValueRole('pre', 'string').html(node_in);
+    return makeValueRole('pre', 'string').html(nodeIn);
   } else if (type === '[object Number]') {
-    return makeValueRole('pre', 'number').html(node_in);
+    return makeValueRole('pre', 'number').html(nodeIn);
   } else if (type === '[object global]' || type === '[object Null]') {
     return makeValueRole('pre', 'null').html('null');
   } else if (type === '[object Boolean]') {
-    return makeValueRole('pre', 'boolean').html(node_in.toString());
+    return makeValueRole('pre', 'boolean').html(nodeIn.toString());
   }
 }
 
