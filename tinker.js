@@ -1,23 +1,25 @@
-$(function () {
-  $(document).bind('contextmenu', function () {
-    return false;
-  }); 
+$.fn.tinker = function (jsonStr) {
+  var json, base;
 
-  $('#load-json').on('click', function () {
-    loadJson();
-  });
+  try {
+    json = JSON.parse(jsonStr);
+  } catch (err) {
+    json = JSON.parse('{"error": "parse failed"}');
+  }
 
-  $('#extract-json').on('click', function () {
-    extractJson('json-editor', 2);
-  });
-        
-  $('#json-editor').tinker('{"greeting":"haro"}');
+  this.append(makeNode(json));
+  applyEditlets();
+};
 
-  $('#json-input').click(function () {
-    $(this).focus();
-    $(this).select();
-  });
-});
+var menuOptions = {
+  disable_native_context_menu: true,
+  showMenu: function (element) {
+    element.addClass('dimmed');
+  },
+  hideMenu: function (element) {
+    element.removeClass('dimmed');
+  },
+};
 
 // stuff for the right click menus
 function setupContextMenu() {
@@ -41,15 +43,6 @@ function removeItem(element) {
   });
 }
 
-var menuOptions = {
-  disable_native_context_menu: true,
-  showMenu: function (element) {
-    element.addClass('dimmed');
-  },
-  hideMenu: function (element) {
-    element.removeClass('dimmed');
-  },
-};
 
 var easySaveValue = function (value, settings) { 
   $(this).text(value);
@@ -226,26 +219,6 @@ function applyEditlets() {
   setupContextMenu();
 }
 
-// parse the text area into the the workarea, setup the event handlers
-function loadJson() {
-  var $editor = $('#json-editor');
-
-  $editor.html('');
-  $editor.tinker($('#json-input').val());
-}
-
-$.fn.tinker = function (jsonStr) {
-  var json, base;
-
-  try {
-    json = JSON.parse(jsonStr);
-  } catch (err) {
-    json = JSON.parse('{"error": "parse failed"}');
-  }
-
-  this.append(makeNode(json));
-  applyEditlets();
-};
 
 // recursively make html nodes out of the json
 function makeNode(nodeIn) {
