@@ -1,28 +1,23 @@
 $(function () {
+  var $input = $('#json-input');
+  var $editor = $('#json-editor').tinker({ json: '{"greeting":"haro"}' });
+  
   $(document).bind('contextmenu', function () {
     return false;
   }); 
 
   $('#load-json').on('click', function () {
-    loadJson();
+    var json = $input.val();
+    $editor.tinker({ json: json });
   });
 
   $('#extract-json').on('click', function () {
-    extractJson('json-editor', 2);
+    var json = $editor.tinker('json');
+    $input.val(json);
   });
-        
-  $('#json-editor').tinker('{"greeting":"haro"}');
 
-  $('#json-input').click(function () {
+  $input.click(function () {
     $(this).focus();
     $(this).select();
   });
-
-  // parse the text area into the the workarea, setup the event handlers
-  function loadJson() {
-    var $editor = $('#json-editor');
-
-    $editor.html('');
-    $editor.tinker($('#json-input').val());
-  }
 });
