@@ -1,0 +1,22 @@
+.page-header {
+  margin-top: 0.5em;
+}
+
+#config-raw,
+#config-visual {
+  width: 100%;
+}
+
+#config-visual {
+  border: 1px solid #ddd;
+  border-top: 0;
+  padding-bottom: 20px;
+}
+
+#config-raw {
+  border-color: #ddd;
+  border-top: 0;
+  height: 400px;
+  padding: .5em;
+  font-family: courier;
+}

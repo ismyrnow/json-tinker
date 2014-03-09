@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="Keywords" content="JSON Editor, JSON parser, JSON formatter" />
+    <title>JSON Tinker</title>
+    <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../jquery.tinker.css">
+    <link rel="stylesheet" href="tabbed.css">    
+  </head>
+  <body>
+
+    <div class="container-fluid">
+      <h1 class="page-header">Configuration Editor</h1>
+      <div class="row">
+        
+        <div class="col-md-2">
+          <ul class="nav">
+            <li><a href="#">Save</a></li>
+            <li><a href="#">Discard Changes</a></li>
+            <li><a href="#">Restore Backup<br/><span class="text-muted">(12/25/2013 4:55pm)</span></a></li>
+            <li><a href="#">Download</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-md-10">
+          
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#visual" data-toggle="tab">Visual Editor</a></li>
+            <li><a href="#raw" data-toggle="tab">Raw JSON</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane active" id="visual">
+              <div id="config-visual"></div>
+            </div>
+            <div class="tab-pane" id="raw">
+              <textarea id="config-raw">{"name":"jane","employed":false,"husband":null,"items":["haro",23,{"brand":"Duca"},true],"pets":[{"name":"chopper","color":"blue"},{"name":"yoshi","color":"green"},{"name":"mame","color":"&#38738;&#12356;"}],"height":170.4,"car":{"color":"red","model":"mini","clean":false}}
+              </textarea>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <script src="../vendor/jquery/dist/jquery.js"></script>
+    <script src="../vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../libs/jeditable.js"></script>
+    <script src="../libs/jquery.contextMenu.js"></script>
+    <script src="../jquery.tinker.js"></script>
+    <script src="tabbed.js"></script>
+    
+  </body>
+</html>
