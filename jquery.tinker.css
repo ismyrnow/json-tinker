@@ -1,3 +1,15 @@
+.tinker,
+.tinker * {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  background: none;
+  box-sizing: border-box;
+}
+
 .tinker {
   background: #fff;
   font-family: courier;
@@ -110,8 +122,7 @@
   float: right;
   position: absolute;
   border: 1px solid;
-  min-height: 4px;
-  max-height: 16px;
+  min-height: 6px;
   overflow: hidden;
 }
 
@@ -128,9 +139,7 @@
 
 .tinker div.add-box-content {
   display: none;
-  padding: 0px;
-  margin: 2px;
-  padding-left: 5px;
+  padding: 3px 5px;
   text-align: center;
   cursor: default;
 }
