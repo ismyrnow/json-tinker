@@ -1,0 +1,163 @@
+.tinker {
+  background: #fff;
+  font-family: courier;
+  font-size: 12px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.tinker div {
+  padding: 1px;
+  margin: 2px 20px 2px 2px;
+  border-radius: 5px;
+}
+
+.tinker span {
+  margin: 2px;
+  padding:1px;
+}
+
+.tinker div[data-type="object"] {
+  border: 1px solid #fcc;
+  padding-bottom: 8px;
+}
+
+.tinker div[data-type="array"] {
+  border: 1px solid #ccf;
+  padding-bottom: 8px;
+}
+
+.tinker div[data-role="arrayitem"] > div  {
+  margin-left: 2px;
+}
+
+.tinker pre {
+  display: inline;
+  margin: 2px;
+  font-family: courier;
+  white-space: pre-wrap;
+}
+
+.tinker [data-type="string"] {
+  color: #4AA150;
+}
+
+.tinker [data-type="number"] {
+  color: #D67B13;
+}
+
+.tinker [data-type="null"] {
+  color: #919191;
+}
+
+.tinker [data-type="boolean"] {
+  color: #FA6B8F;
+}
+
+.tinker div[data-role="value"] {
+  margin-left: 20px;
+}
+
+.tinker div[data-role="prop"],
+.tinker div[data-role="arrayitem"] {
+  /*border: 0px solid #ccf;*/
+  margin: 1px;
+  padding: 1px;
+  color: #4155A6;
+}
+
+.tinker span[data-role="key"] {
+  min-width:100px;
+}
+
+.tinker .edit-box {
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+}
+
+.tinker .collapse-box {
+  font-size: 6pt;
+  color: #999;
+  padding: 0px;
+  margin: 0px;
+  cursor: pointer;
+}
+
+.tinker .dimmed {
+  opacity:0.4;filter:alpha(opacity=40);
+  background; #999;
+}
+
+.tinker div[data-type="object"] > div.inline-add-box {
+  border: 1px solid #fcc;
+}
+
+.tinker div[data-type="array"] > div.inline-add-box {
+  border: 1px solid #ccf;
+}
+
+.tinker div.inline-add-box {
+  margin: 5px 0px 0px -2px;
+  border-radius: 3px;
+  background: white;
+  min-width: 20px;
+  color: #AAA;
+  text-align: center;
+  padding: 0px;
+  font-family: Verdana !important;
+  font-size: 9px;
+  float: right;
+  position: absolute;
+  border: 1px solid;
+  min-height: 4px;
+  max-height: 16px;
+  overflow: hidden;
+}
+
+.tinker div.inline-add-box a {
+  color: #7aa;
+  font-size: 10px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.tinker div.inline-add-box a:hover {
+  color: #366;
+}
+
+.tinker div.add-box-content {
+  display: none;
+  padding: 0px;
+  margin: 2px;
+  padding-left: 5px;
+  text-align: center;
+  cursor: default;
+}
+
+/* TODO: get the context-menu to render inside tinker container, or give them a tinker class */
+
+.context-menu {  
+  font-family: verdana, arial, sans-serif;
+  font-size: 12px;  
+  list-style-type: none;
+  margin: 0; 
+  padding: 0;  
+  background-color: #f2f2f2;
+  border: 1px solid #999;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.context-menu a {
+  display: block;
+  padding: 3px;
+  text-decoration: none;
+  color: #333;
+}
+
+.context-menu a:hover {
+  background-color: #666;
+  color: white;
+}
