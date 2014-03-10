@@ -10,8 +10,19 @@
       return extractJson(this.attr('id'), 2);
     }
     
+    // $editor.tinker('object')
+    else if (arguments.length === 1 && arguments[0] === 'object') {
+      return extractObject(this.attr('id'));
+    }
+    
     // $editor.tinker('json', str)
-    if (arguments.length === 2 && arguments[0] === 'json') {
+    else if (arguments.length === 2 && arguments[0] === 'json') {
+      // TODO: update editor
+      throw new Error('not yet implemented');
+    }
+    
+    // $editor.tinker('object', obj)
+    else if (arguments.length === 2 && arguments[0] === 'object') {
       // TODO: update editor
       throw new Error('not yet implemented');
     }
@@ -30,6 +41,12 @@
         }
 
         this.html('').addClass('tinker').append(makeNode(json));
+        applyEditlets();
+      }
+      
+      // $editor.tinker({ object: obj })
+      else if (options.object && typeof options.object === 'object') {
+        this.html('').addClass('tinker').append(makeNode(options.object));
         applyEditlets();
       }
     }
@@ -111,18 +128,19 @@
     }
   };
 
-  // copy the workspace back into the textarea
-  function extractJson(divid, indent){
-    return gleanJson(divid, indent);
-  }
-
   // convert the work area to a json string
-  function gleanJson(divid, indent)  {
+  function extractJson(divid, indent) {
+    var jsObject = extractObject(divid);
+    var json = JSON.stringify(jsObject, null, indent);
+    return json;
+  }
+  
+  // convert the work area to a js object
+  function extractObject(divid) {
     var base = $('#' + divid);
     var rootnode = base.children('div[data-role="value"]:first');
     var jsObject = parseNode(rootnode);
-    var json = JSON.stringify(jsObject, null, indent);
-    return json;
+    return jsObject;
   }
 
   // convert the work area to a js object
