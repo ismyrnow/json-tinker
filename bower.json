@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "homepage": "https://github.com/ismyrnow/json-tinker",
   "authors": [
-    "Ilya Radchenko <ilya@burstcreations.com>"
+    "Ian Chen <meishi@bubblemix.net>",
+    "Ilya Radchenko <ilya@burstcreations.com>",
+    "Ishmael Smyrnow <ismyrnow@gmail.com>"
   ],
   "description": "Inline JSON editing plugin for jQuery",
   "main": "tinker.js",
