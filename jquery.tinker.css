@@ -13,7 +13,6 @@
 .tinker {
   background: #fff;
   font-family: courier;
-  font-size: 12px;
   padding: 0px;
   margin: 0px;
 }
@@ -89,7 +88,7 @@
 }
 
 .tinker .collapse-box {
-  font-size: 6pt;
+  font-size: 0.65em;
   color: #999;
   padding: 0px;
   margin: 0px;
@@ -97,7 +96,8 @@
 }
 
 .tinker .dimmed {
-  opacity:0.4;filter:alpha(opacity=40);
+  opacity:0.4;
+  filter:alpha(opacity=40);
   background; #999;
 }
 
@@ -118,7 +118,7 @@
   text-align: center;
   padding: 0px;
   font-family: Verdana !important;
-  font-size: 9px;
+  font-size: 0.65em;
   float: right;
   position: absolute;
   border: 1px solid;
@@ -128,7 +128,7 @@
 
 .tinker div.inline-add-box a {
   color: #7aa;
-  font-size: 10px;
+  font-size: 1.1em;
   cursor: pointer;
   text-decoration: none;
 }
@@ -140,15 +140,14 @@
 .tinker div.add-box-content {
   display: none;
   padding: 3px 5px;
+  margin: 2px;
   text-align: center;
   cursor: default;
 }
 
 /* TODO: get the context-menu to render inside tinker container, or give them a tinker class */
 
-.context-menu {  
-  font-family: verdana, arial, sans-serif;
-  font-size: 12px;  
+.context-menu {
   list-style-type: none;
   margin: 0; 
   padding: 0;  
@@ -161,7 +160,7 @@
 
 .context-menu a {
   display: block;
-  padding: 3px;
+  padding: 3px 5px;
   text-decoration: none;
   color: #333;
 }
